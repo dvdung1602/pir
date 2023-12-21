@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+  <meta charset='UTF-8'>
+  <title>Điều khiển PIR </title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #nut {
+      padding: 20px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: green;
+    }
+
+    #nut.off {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+<button id='nut' onclick='nut()'>Bật PIR </button>
+
+<script>
+  function nut() {
+    var button = document.getElementById('nut');
+    // var TextWebSend;
+    button.classList.toggle('off');
+    
+    if (button.classList.contains('off')) {
+        // TextWebSend = 'OnPir';
+        button.textContent = 'Tắt PIR';
+        SendData('OnPir');
+    } else {
+        button.textContent = 'Bật PIR';
+        // TextWebSend = 'OffPir';
+        SendData('OffPir');
+    }
+  }
+  function SendData(TextWebSend)
+  {
+    var WebSendText = new XMLHttpRequest();
+    WebSendText,open('GET','/Conect?WebSend=' + TextWebSend);
+    WebSendText.send();
+  }
+</script>
+
+</body>
+</html>

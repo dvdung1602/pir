@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Control</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESP32 Control</h1>
+
+    <button id="onButton" onclick="sendCommand('on')">Turn On</button>
+    <button id="offButton" onclick="sendCommand('off')">Turn Off</button>
+
+    <script>
+        function sendCommand(command) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Response from ESP32
+                    console.log(this.responseText);
+                }
+            };
+            xhttp.open("GET", "/control?command=" + command, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
